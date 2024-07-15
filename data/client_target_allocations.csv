@@ -1,0 +1,221 @@
+Client,Target Portfolio,Asset Class,Target Allocation (%)
+,Balanced,Stocks,50
+Client_1,Balanced,Bonds,30
+Client_1,Balanced,ETFs,15
+Client_1,Balanced,Cash,5
+Client_2,Balanced,Stocks,50
+Client_2,Balanced,Bonds,30
+Client_2,Balanced,ETFs,15
+Client_2,Balanced,Cash,5
+Client_3,Growth,Stocks,70
+Client_3,Growth,Bonds,20
+Client_3,Growth,ETFs,5
+Client_3,Growth,Cash,5
+Client_4,,Stocks,50
+Client_4,Balanced,Bonds,30
+Client_4,Balanced,ETFs,15
+,Balanced,Cash,
+Client_5,Aggressive Growth,Stocks,80
+Client_5,Aggressive Growth,Bonds,10
+Client_5,Aggressive Growth,ETFs,5
+Client_5,Aggressive Growth,Cash,5
+Client_6,Aggressive Growth,Stocks,80
+Client_6,Aggressive Growth,Bonds,10
+Client_6,Aggressive Growth,ETFs,5
+Client_6,Aggressive Growth,Cash,5
+Client_7,Conservative,Stocks,40
+Client_7,Conservative,Bonds,40
+Client_7,Conservative,ETFs,10
+Client_7,Conservative,Cash,10
+Client_8,Conservative,Stocks,40
+Client_8,Conservative,Bonds,40
+Client_8,Conservative,ETFs,10
+Client_8,Conservative,Cash,10
+Client_9,Growth,Stocks,70
+Client_9,Growth,Bonds,20
+Client_9,Growth,ETFs,5
+Client_9,Growth,Cash,5
+Client_10,Balanced,Stocks,50
+,Balanced,Bonds,30
+Client_10,Balanced,ETFs,15
+Client_10,Balanced,Cash,5
+,Growth,Stocks,70
+Client_11,Growth,Bonds,20
+Client_11,Growth,ETFs,5
+Client_11,Growth,Cash,5
+Client_12,Balanced,Stocks,50
+Client_12,Balanced,Bonds,30
+Client_12,Balanced,ETFs,15
+Client_12,,Cash,5
+Client_13,Aggressive Growth,Stocks,80
+Client_13,Aggressive Growth,Bonds,10
+Client_13,Aggressive Growth,ETFs,5
+Client_13,Aggressive Growth,Cash,5
+Client_14,Aggressive Growth,Stocks,80
+Client_14,Aggressive Growth,Bonds,10
+Client_14,Aggressive Growth,ETFs,5
+Client_14,Aggressive Growth,Cash,5
+Client_15,Growth,Stocks,70
+Client_15,Growth,Bonds,20
+Client_15,Growth,ETFs,5
+Client_15,Growth,Cash,5
+Client_16,Balanced,Stocks,50
+Client_16,Balanced,Bonds,30
+Client_16,Balanced,ETFs,15
+Client_16,Balanced,Cash,5
+Client_17,Balanced,Stocks,50
+Client_17,Balanced,Bonds,30
+Client_17,Balanced,ETFs,15
+Client_17,Balanced,Cash,5
+Client_18,Balanced,Stocks,50
+Client_18,Balanced,Bonds,30
+Client_18,Balanced,ETFs,15
+Client_18,Balanced,Cash,5
+Client_19,Growth,Stocks,70
+Client_19,Growth,Bonds,20
+Client_19,Growth,ETFs,5
+Client_19,Growth,Cash,5
+Client_20,Aggressive Growth,Stocks,80
+Client_20,Aggressive Growth,Bonds,10
+Client_20,Aggressive Growth,ETFs,5
+Client_20,Aggressive Growth,Cash,5
+Client_21,Conservative,Stocks,40
+Client_21,Conservative,Bonds,40
+Client_21,Conservative,ETFs,10
+Client_21,Conservative,Cash,10
+Client_22,Conservative,Stocks,40
+Client_22,Conservative,Bonds,40
+Client_22,Conservative,ETFs,10
+Client_22,Conservative,Cash,10
+Client_23,Balanced,Stocks,50
+Client_23,Balanced,Bonds,30
+Client_23,Balanced,ETFs,
+Client_23,Balanced,Cash,5
+Client_24,Balanced,,50
+Client_24,,Bonds,30
+Client_24,Balanced,ETFs,15
+Client_24,Balanced,Cash,5
+Client_25,Aggressive Growth,Stocks,80
+Client_25,Aggressive Growth,Bonds,10
+Client_25,Aggressive Growth,ETFs,5
+Client_25,Aggressive Growth,Cash,5
+Client_26,Aggressive Growth,Stocks,80
+Client_26,Aggressive Growth,Bonds,10
+Client_26,Aggressive Growth,ETFs,5
+Client_26,Aggressive Growth,Cash,5
+Client_27,Growth,Stocks,70
+Client_27,Growth,Bonds,20
+Client_27,Growth,ETFs,5
+Client_27,Growth,Cash,5
+Client_28,Balanced,Stocks,50
+Client_28,Balanced,Bonds,30
+Client_28,Balanced,ETFs,15
+Client_28,Balanced,Cash,5
+Client_29,Aggressive Growth,Stocks,80
+Client_29,,Bonds,10
+Client_29,Aggressive Growth,ETFs,5
+Client_29,Aggressive Growth,Cash,5
+Client_30,Conservative,Stocks,40
+Client_30,Conservative,Bonds,40
+Client_30,Conservative,ETFs,10
+Client_30,Conservative,Cash,10
+Client_31,Aggressive Growth,Stocks,80
+Client_31,Aggressive Growth,Bonds,10
+Client_31,Aggressive Growth,ETFs,5
+Client_31,Aggressive Growth,Cash,5
+Client_32,Aggressive Growth,Stocks,80
+Client_32,Aggressive Growth,Bonds,10
+Client_32,Aggressive Growth,ETFs,5
+Client_32,Aggressive Growth,Cash,5
+Client_33,Conservative,Stocks,40
+Client_33,Conservative,Bonds,40
+Client_33,Conservative,ETFs,10
+Client_33,Conservative,Cash,10
+Client_34,Growth,Stocks,70
+Client_34,Growth,Bonds,20
+Client_34,Growth,ETFs,5
+Client_34,Growth,Cash,5
+Client_35,Balanced,Stocks,50
+Client_35,Balanced,Bonds,30
+Client_35,Balanced,ETFs,15
+Client_35,,,5
+Client_36,Conservative,Stocks,40
+Client_36,Conservative,Bonds,40
+Client_36,Conservative,ETFs,10
+Client_36,,Cash,10
+Client_37,Conservative,Stocks,40
+Client_37,Conservative,Bonds,40
+Client_37,Conservative,,10
+Client_37,Conservative,,10
+Client_38,Growth,Stocks,70
+Client_38,Growth,Bonds,20
+Client_38,Growth,ETFs,5
+Client_38,Growth,Cash,5
+Client_39,Aggressive Growth,Stocks,80
+Client_39,Aggressive Growth,Bonds,10
+Client_39,Aggressive Growth,ETFs,5
+Client_39,Aggressive Growth,Cash,5
+Client_40,Growth,Stocks,70
+Client_40,Growth,Bonds,
+Client_40,Growth,ETFs,5
+Client_40,Growth,Cash,5
+Client_41,Conservative,Stocks,40
+Client_41,Conservative,Bonds,40
+Client_41,Conservative,ETFs,10
+Client_41,Conservative,Cash,10
+Client_42,Growth,Stocks,70
+Client_42,Growth,Bonds,20
+Client_42,Growth,ETFs,5
+Client_42,Growth,Cash,5
+Client_43,Balanced,Stocks,50
+Client_43,Balanced,Bonds,30
+Client_43,,ETFs,15
+Client_43,Balanced,Cash,5
+Client_44,Aggressive Growth,Stocks,80
+Client_44,Aggressive Growth,Bonds,10
+Client_44,Aggressive Growth,ETFs,5
+Client_44,Aggressive Growth,Cash,5
+Client_45,Balanced,Stocks,50
+Client_45,Balanced,Bonds,30
+Client_45,Balanced,ETFs,15
+Client_45,Balanced,Cash,
+Client_46,Balanced,Stocks,50
+Client_46,Balanced,Bonds,30
+Client_46,Balanced,ETFs,15
+Client_46,Balanced,Cash,5
+Client_47,Growth,Stocks,70
+Client_47,Growth,Bonds,20
+Client_47,Growth,ETFs,5
+Client_47,Growth,Cash,5
+Client_48,Conservative,Stocks,40
+Client_48,Conservative,Bonds,40
+Client_48,Conservative,ETFs,10
+Client_48,Conservative,Cash,10
+Client_49,Aggressive Growth,Stocks,
+Client_49,Aggressive Growth,Bonds,10
+Client_49,Aggressive Growth,ETFs,5
+Client_49,Aggressive Growth,Cash,5
+Client_50,Growth,Stocks,70
+Client_50,Growth,Bonds,20
+Client_50,Growth,ETFs,5
+Client_50,Growth,Cash,5
+Client_15,Growth,ETFs,5
+,Growth,Stocks,70
+Client_9,Growth,ETFs,5
+Client_26,Aggressive Growth,ETFs,5
+Client_47,Growth,Stocks,70
+Client_50,Growth,ETFs,5
+Client_24,Balanced,Cash,5
+Client_2,Balanced,Stocks,50
+Client_8,Conservative,Bonds,40
+Client_43,Balanced,Stocks,50
+Client_43,Balanced,Cash,5
+Client_5,Aggressive Growth,ETFs,5
+Client_3,Growth,Cash,5
+Client_23,Balanced,Bonds,30
+Client_28,Balanced,ETFs,15
+Client_30,Conservative,ETFs,10
+Client_40,Growth,Cash,5
+Client_9,Growth,Cash,5
+Client_35,Balanced,Stocks,50
+Client_15,Growth,Cash,5
