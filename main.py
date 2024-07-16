@@ -17,7 +17,7 @@ Usage
 -----
 1. Run the FastAPI server:
     ```sh
-    uvicorn src.api:app --reload
+    fastapi dev main.py
     ```
 2. Access the health check endpoint at:
     http://127.0.0.1:8000/healthcheck
