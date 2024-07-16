@@ -7,7 +7,6 @@ The agent is integrated with a set of tools, such as an SQL tool, and utilizes a
 Structure
 ---------
 - Imports: Necessary libraries and modules.
-- Global Store: A dictionary to maintain session histories.
 - Functions: Functions to handle session history retrieval.
 - LLM Initialization: Setting up the language model with tools.
 - Prompt Construction: Building the prompt template.
@@ -22,11 +21,10 @@ Example Usage:
 
 from langchain.agents import create_openai_tools_agent
 from langchain.agents.agent import AgentExecutor
-from langchain_core.prompts import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-)
-from langgraph.checkpoint import MemorySaver
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.prompts import (ChatPromptTemplate, PromptTemplate,
+                                    SystemMessagePromptTemplate)
+from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.tools import StructuredTool
 from langchain_openai import ChatOpenAI
 
@@ -34,46 +32,61 @@ import src.prompts as p
 from src.logger.logger import l
 from src.tools.sql import sql_tool
 
-store = {}
-
-
 l.info("Building LLM")
 llm = ChatOpenAI(
     name="gpt-4o",
-    temperature=0.2,
+    temperature=0,
     model_kwargs={
         "seed": 42,
     },
 )
 
 l.info("Binding tools to the LLM")
-tools = [StructuredTool.from_function(func=sql_tool)]
+tools = [StructuredTool.from_function(func=sql_tool, handle_tool_error=True)]
 llm.bind_tools(tools)
 
 
 l.info("Building prompts")
+system_prompt = PromptTemplate.from_template(
+    "".join(
+        [
+            p.get_agent_description_prompt(),
+            p.get_tools_prompt(tools),
+            p.get_sql_tool_rules_prompt(),
+        ]
+    )
+)
+
 prompt = ChatPromptTemplate.from_messages(
     [
-        SystemMessagePromptTemplate(prompt=p.get_tools_prompt(tools)),
-        SystemMessagePromptTemplate(prompt=p.get_few_shot_queries_prompt()),
-        SystemMessagePromptTemplate(prompt=p.get_columns_values_prompt()),
+        SystemMessagePromptTemplate(prompt=system_prompt),
+        ("placeholder", "{chat_history}"),
         ("human", "{input}"),
         ("ai", "{agent_scratchpad}"),
     ]
 )
 
 l.info("Initializing agent memory")
-memory = MemorySaver()
+
+memory = ChatMessageHistory(session_id="test-session")
 
 l.info("Creating ReAct agent")
 react_agent = create_openai_tools_agent(llm=llm, prompt=prompt, tools=tools)
-agent = AgentExecutor(
+agent_executor = AgentExecutor(
     agent=react_agent,
     tools=tools,
     max_iterations=3,
     verbose=True,
     handle_parsing_errors=True,
     return_intermediate_steps=True,
-    checkpointer=memory,
+)
+
+agent = RunnableWithMessageHistory(
+    agent_executor,
+    # This is needed because in most real world scenarios, a session id is needed
+    # It isn't really used here because we are using a simple in memory ChatMessageHistory
+    lambda session_id: memory,
+    input_messages_key="input",
+    history_messages_key="chat_history",
 )
 l.info("Agent ready and waiting for input")

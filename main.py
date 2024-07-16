@@ -27,7 +27,7 @@ Usage
 
 Example:
     ```sh
-    curl -X POST "http://127.0.0.1:8000/generate" -H "Content-Type: application/json" -d '{"user_query": "What is the target allocation percentage of stocks for each client?"}'
+    curl -X POST http://0.0.0.0:8000/generate -H "Content-Type: application/json" -d '{"user_query": "Which assets Client_1 have a target allocation smaller than 40%?", "session_id": "123"}'
     ```
 
 Dependencies
@@ -48,9 +48,11 @@ class GenerationRequest(BaseModel):
 
     Attributes:
         user_query (str): The user's query to be processed by the agent.
+        session_id (str): The session ID for the conversation.
     """
 
     user_query: str
+    session_id: str
 
 
 app = FastAPI()
@@ -82,5 +84,6 @@ async def generate(gen_req: GenerationRequest):
         {
             "input": gen_req.user_query,
         },
+        {"configurable": {"session_id": gen_req.session_id}},
     )
     return response["output"]

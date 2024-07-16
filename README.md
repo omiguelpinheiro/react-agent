@@ -58,9 +58,7 @@ fastapi dev main.py
 And then make requests to it:
 
 ```sh
-curl -X POST http://0.0.0.0:8000/generate \
--H "Content-Type: application/json" \
--d '{"user_query": "Which assets Client_1 have a target allocation smaller than 40%?"}'
+curl -X POST http://0.0.0.0:8000/generate -H "Content-Type: application/json" -d '{"user_query": "Which assets Client_1 have a target allocation smaller than 40%?", "session_id": "123"}'
 ```
 
 ## Structure
