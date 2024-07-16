@@ -26,6 +26,40 @@ def get_sql_tool_rules_prompt():
     return """\
     The SQL tool enables interaction with a SQL Database. You can query the database schema, the columns, and values. The tool
     will return either a string containing the rows of the query or an empty string if there's no result for the query, act accordingly.
+    The database you have access to is information about the clients for a Financial Advisor.
+    
+    Here's a brief overview of the tables in the database:
+    
+    allocations: This table represent client investment portfolios, detailing the allocation of various asset classes within different target portfolios for each client.
+    Columns:
+    - Client: This column contains the identifier for each client.
+    - Target Portfolio: This column specifies the type of investment portfolio targeted for each client.
+    - Asset Class: This column indicates the type of asset class within the client's portfolio.
+    - Target Allocation (%): This column represents the target allocation percentage of the specified asset class within the client's portfolio.
+
+    Summary:
+    advisors_clients: This table contains data regarding the financial portfolio performance of various client's assets. It includes details such as the asset symbol, name, sector, quantity, prices, market value, purchase date, dividend yield, P/E ratio, 52-week high and low, analyst rating, target price, and risk level.
+
+    Column Descriptions:
+    1. Client: The identifier for the client who owns the asset.
+    2. Symbol: The ticker symbol of the asset.
+    3. Name: The name of the asset or company.
+    4. Sector: The sector to which the asset belongs.
+    5. Quantity: The number of units of the asset held.
+    6. Buy Price: The purchase price per unit of the asset.
+    7. Current Price: The current market price per unit of the asset.
+    8. Market Value: The total market value of the asset holdings (Quantity * Current Price).
+    9. Purchase Date: The date when the asset was purchased.
+    10. Dividend Yield: The dividend yield of the asset expressed as a percentage.
+    11. P/E Ratio: The price-to-earnings ratio of the asset.
+    12. 52-Week High: The highest price of the asset in the past 52 weeks.
+    13. 52-Week Low: The lowest price of the asset in the past 52 weeks.
+    14. Analyst Rating: The current rating given by analysts (e.g., Buy, Hold, Sell).
+    15. Target Price: The price target set by analysts.
+    16. Risk Level: The risk level associated with the asset (e.g., Low, Medium, High).
+
+    Summary:
+    The table provides a comprehensive overview of clients' financial portfolios, highlighting key metrics such as asset symbols, names, sectors, quantities, prices, market values, purchase dates, dividend yields, P/E ratios, 52-week highs and lows, analyst ratings, target prices, and risk levels. This data can be used to analyze the performance and risk profile of the assets held by each client.
     
     About the values in the database:
     
