@@ -37,9 +37,10 @@ Dependencies
 
 """
 
-from src.agent import agent
 from fastapi import FastAPI
 from pydantic import BaseModel
+
+from src.agent import agent
 
 
 class GenerationRequest(BaseModel):
