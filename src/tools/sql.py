@@ -31,6 +31,8 @@ Example Usage:
     result = sql_tool("SELECT * FROM allocations WHERE 'Target Portfolio' = 'Balanced'")
 """
 
+import ast
+import re
 import os
 import sqlite3
 
@@ -111,6 +113,64 @@ l.info(f"Table Info Context:\n{context['table_info']}")
 l.info(f"Table Names Context: {context['table_names']}")
 
 
+def extract_columns(query: str) -> list[str]:
+    pattern = re.compile(r"SELECT\s+(.*?)\s+FROM", re.IGNORECASE | re.DOTALL)
+    match = pattern.search(query)
+
+    if not match:
+        return []
+
+    columns_string = match.group(1)
+
+    column_pattern = re.compile(r"`(.*?)`")
+    columns = column_pattern.findall(columns_string)
+
+    return columns
+
+def replace_null_values(columns: list, result: str) -> str:
+    """
+    Replaces null values in the result list with default values based on the column name.
+
+    Args:
+        columns (list): A list of column names.
+        result (str): A string representation of a list containing the query result.
+
+    Returns:
+        str: A string representation of the updated result list with null values replaced.
+
+    Example:
+        columns = ["Target Portfolio", "Asset Class", "Client"]
+        result = '[[None, "Stocks", "John Doe"], ["Aggressive", None, "Unknown Client"]]'
+        replace_null_values(columns, result)
+        # Output: '[[Conservative, Stocks, John Doe], [Aggressive, Cash, Unknown Client]]'
+    """
+    default_values = {
+        "Target Portfolio": "Conservative",
+        "Asset Class": "Cash",
+        "Client": "Unknown Client",
+        "Target Allocation (%)": 0,
+        "Sector": "Unknown Sector",
+        "Analyst Rating": "Hold",
+        "Risk Level": "Medium",
+    }
+    
+    result_list = ast.literal_eval(result)
+    
+    updated_result_list = []
+    for row in result_list:
+        updated_row = []
+        for i, value in enumerate(row):
+            column_name = columns[i]
+            if value is None:
+                default_value = default_values.get(column_name, "Unknown")
+                updated_row.append(default_value)
+            else:
+                updated_row.append(value)
+        updated_result_list.append(updated_row)
+
+    return str(updated_result_list)
+
+
 def sql_tool(query: str):
     """
     Executes an SQL query using the provided query string.
@@ -123,4 +183,11 @@ def sql_tool(query: str):
     """
     l.info(f"Running SQL Tool with query: {query}")
     result = db.run(query)
+    
+    if not result:
+        return "No results returned, maybe the query is wrong?"
+
+    ordered_columns = extract_columns(query)
+    result = replace_null_values(ordered_columns, result)
+
     return result
