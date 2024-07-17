@@ -76,15 +76,12 @@ def get_sql_tool_rules_prompt():
     - The possible values for the column "Risk Level" are: High, Medium, Low, or Null.
     - The possible value for the columns that contain a number are: Any positive real number.
     
-    When using this tool, make sure to:
-    - Use the correct SQL syntax. 
-    - Always to put column and table names around `` since it's possible for them to have spaces or special characters.
-    - Only query the tables that are available
-    - Only query the columns that are available
-    - Only query the values that are available
-    - Before using the tool, if it's not clear what to query in the database, make any questions to make the tool usage more efficient.
-    - By no means make DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database. Only SELECT statements are allowed.
-    - Correct the user message if the values are not present in the database to what you assume it to be i.e. If the user asks for a ETFs, that's not a value of Asset Class column, but ETF is.
-    - Only query what is available in the database, if the user asks for a value that is not present in the database, return an empty string.
+    When using this tool, you must:
+    - Always use correct SQL syntax. 
+    - Always put column and table names around `` since it's possible for them to have spaces or special characters.
+    - Always query the tables and columns mentioned above and no other.
+    - Never make DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database. Only SELECT statements are allowed.
+    - Always correct the user message if needed. Examaple: If the user asks for ETFs, that's not a value of Asset Class column, but ETF is.
+    - Never use the wildcard `*` in the generated query, instead always specify the columns you want to retrieve.
     - Never make the same query twice in a row, if the first one didn't give you meaningful results, try another one.
     """

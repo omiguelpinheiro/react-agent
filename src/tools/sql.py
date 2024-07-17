@@ -32,8 +32,8 @@ Example Usage:
 """
 
 import ast
-import re
 import os
+import re
 import sqlite3
 
 import pandas as pd
@@ -108,24 +108,43 @@ ping_table("advisors_clients")
 
 l.info("Initializing SQL Database tool")
 db = SQLDatabase.from_uri(f"sqlite:///{db_path}")
-context = db.get_context()
-l.info(f"Table Info Context:\n{context['table_info']}")
-l.info(f"Table Names Context: {context['table_names']}")
+
+tables_columns = {
+    "allocations": list(allocations.columns),
+    "advisors_clients": list[advisors_clients.columns],
+}
 
 
 def extract_columns(query: str) -> list[str]:
-    pattern = re.compile(r"SELECT\s+(.*?)\s+FROM", re.IGNORECASE | re.DOTALL)
-    match = pattern.search(query)
+    """
+    Extracts the column names from a SQL SELECT query.
 
+    Args:
+        query (str): The SQL SELECT query.
+
+    Returns:
+        list[str]: A list of column names extracted from the query.
+    """
+    pattern = re.compile(
+        r"SELECT\s+(?:DISTINCT\s+)?(.*?)\s+FROM", re.IGNORECASE | re.DOTALL
+    )
+    match = pattern.search(query)
     if not match:
         return []
 
     columns_string = match.group(1)
 
-    column_pattern = re.compile(r"`(.*?)`")
-    columns = column_pattern.findall(columns_string)
+    column_pattern = re.compile(r"`([^`]+)`|(\b\w+\b(?:,\s*\w+\b)*)")
+    matches = column_pattern.findall(columns_string)
+    columns = []
+    for match in matches:
+        if match[0]:
+            columns.append(match[0])
+        elif match[1]:
+            columns.extend(match[1])
 
     return columns
+
 
 def replace_null_values(columns: list, result: str) -> str:
     """
@@ -153,9 +172,9 @@ def replace_null_values(columns: list, result: str) -> str:
         "Analyst Rating": "Hold",
         "Risk Level": "Medium",
     }
-    
+
     result_list = ast.literal_eval(result)
-    
+
     updated_result_list = []
     for row in result_list:
         updated_row = []
@@ -171,6 +190,50 @@ def replace_null_values(columns: list, result: str) -> str:
     return str(updated_result_list)
 
 
+def update_select_columns(query: str, table: str) -> str:
+    """
+    Updates the SELECT statement in the given SQL query to include all columns from the specified table.
+
+    Args:
+        query (str): The SQL query to update.
+        table (str): The name of the table.
+
+    Returns:
+        str: The updated SQL query with the SELECT statement modified to include all columns from the table.
+    """
+    if f"SELECT * FROM `{table}`" in query or f"SELECT * FROM {table}" in query:
+        backticked_columns = ", ".join(f"`{col}`" for col in tables_columns[table])
+
+        query = query.replace(
+            f"SELECT * FROM `{table}`",
+            f"SELECT {str(backticked_columns)} FROM `{table}`",
+        )
+
+        query = query.replace(
+            f"SELECT * FROM {table}",
+            f"SELECT {str(backticked_columns)} FROM {table}",
+        )
+    return query
+
+
+def replace_wildcard(query: str) -> str:
+    """
+    Replaces the wildcard in the given SQL query with the appropriate select columns.
+
+    Args:
+        query (str): The SQL query to be modified.
+
+    Returns:
+        str: The modified SQL query with the wildcard replaced.
+
+    """
+    if "allocations" in query:
+        query = update_select_columns(query, "allocations")
+    elif "advisors_clients" in query:
+        query = update_select_columns(query, "advisors_clients")
+    return query
+
+
 def sql_tool(query: str):
     """
     Executes an SQL query using the provided query string.
@@ -181,11 +244,12 @@ def sql_tool(query: str):
     Returns:
         The result of the SQL query execution.
     """
+    query = replace_wildcard(query)
     l.info(f"Running SQL Tool with query: {query}")
     result = db.run(query)
-    
+
     if not result:
-        return "No results returned, maybe the query is wrong?"
+        return "No results found in the database. Please try another query."
 
     ordered_columns = extract_columns(query)
     result = replace_null_values(ordered_columns, result)
