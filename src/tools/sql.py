@@ -111,7 +111,7 @@ db = SQLDatabase.from_uri(f"sqlite:///{db_path}")
 
 tables_columns = {
     "allocations": list(allocations.columns),
-    "advisors_clients": list[advisors_clients.columns],
+    "advisors_clients": list(advisors_clients.columns),
 }
 
 
@@ -146,7 +146,7 @@ def extract_columns(query: str) -> list[str]:
     return columns
 
 
-def replace_null_values(columns: list, result: str) -> str:
+def replace_null_values(columns: list, result: pd.DataFrame) -> str:
     """
     Replaces null values in the result list with default values based on the column name.
 
@@ -173,19 +173,19 @@ def replace_null_values(columns: list, result: str) -> str:
         "Risk Level": "Medium",
     }
 
+    # Convert string representation of list to actual list
     result_list = ast.literal_eval(result)
 
-    updated_result_list = []
-    for row in result_list:
-        updated_row = []
-        for i, value in enumerate(row):
-            column_name = columns[i]
-            if value is None:
-                default_value = default_values.get(column_name, "Unknown")
-                updated_row.append(default_value)
-            else:
-                updated_row.append(value)
-        updated_result_list.append(updated_row)
+    # Create DataFrame from result list
+    df = pd.DataFrame(result_list, columns=columns)
+
+    # Fill null values using the default_values dictionary
+    for column, default_value in default_values.items():
+        if column in df.columns:
+            df[column] = df[column].fillna(default_value)
+
+    # Convert DataFrame back to list of lists
+    updated_result_list = df.values.tolist()
 
     return str(updated_result_list)
 
@@ -227,9 +227,9 @@ def replace_wildcard(query: str) -> str:
         str: The modified SQL query with the wildcard replaced.
 
     """
-    if "allocations" in query:
+    if "FROM allocations" in query or "FROM `allocations`" in query:
         query = update_select_columns(query, "allocations")
-    elif "advisors_clients" in query:
+    elif "FROM advisors_clients" in query or "FROM `advisors_clients`" in query:
         query = update_select_columns(query, "advisors_clients")
     return query
 

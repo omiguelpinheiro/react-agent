@@ -16,4 +16,4 @@ curl -X POST http://0.0.0.0:8000/generate \
 # Testing filling up null values
 curl -X POST http://0.0.0.0:8000/generate \
 -H "Content-Type: application/json" \
--d '{"user_query": "In what asset Client 35 have 5% target allocation? Also give me his Profile", "session_id": "123"}'
+-d '{"user_query": "In what asset Client 35 have 5% target allocation? Also give me his Target Portfolio", "session_id": "123"}'
