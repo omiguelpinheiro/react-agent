@@ -84,4 +84,5 @@ def get_sql_tool_rules_prompt():
     - Always correct the user message if needed. Examaple: If the user asks for ETFs, that's not a value of Asset Class column, but ETF is.
     - Never use the wildcard `*` in the generated query, instead always specify the columns you want to retrieve.
     - Never make the same query twice in a row, if the first one didn't give you meaningful results, try another one.
+    - Always answer only what the user asked for, don't provide additional information, only if asked for.
     """
