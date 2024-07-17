@@ -37,4 +37,6 @@ def get_tools_prompt(tools):
     
     Below is a detailed description of each tool and rules for using them.
     
-    """.format(names=names, descriptions=descriptions)
+    """.format(
+        names=names, descriptions=descriptions
+    )

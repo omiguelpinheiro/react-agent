@@ -22,8 +22,11 @@ Example Usage:
 from langchain.agents import create_openai_tools_agent
 from langchain.agents.agent import AgentExecutor
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.prompts import (ChatPromptTemplate, PromptTemplate,
-                                    SystemMessagePromptTemplate)
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    PromptTemplate,
+    SystemMessagePromptTemplate,
+)
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.tools import StructuredTool
 from langchain_openai import ChatOpenAI
